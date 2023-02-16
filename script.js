@@ -9,7 +9,8 @@ const SpriteWidth = 100;
 const SpriteHeight = 100;
 var goodCounter = 0;
 var cashForChest = 1
-var cash = 0;
+var cash = 300000000000000;
+var cashFormat = 0;
 var cashForUpgrade = 10;
 var cashForCharacter = 15;
 var cashText = document.getElementById("cashText");
@@ -133,6 +134,20 @@ function buyCharacter(){
 }
 
 
+function cashFormating(){
+    if (cash >= 1000){
+        cashFormat = parseInt(cash / 1000) + 'K';
+        if (cash >= 1000000){
+            cashFormat = parseInt(cash / 1000000) + 'M';
+        }
+    }
+    else{
+        cashFormat = cash;
+    }
+    cashText.textContent = cashFormat;
+}
+
+
 blocksSpriteSheet.onload = function placeBlocks(){  
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     for (var idx = 0; idx < Map.length;idx++){
@@ -145,7 +160,7 @@ blocksSpriteSheet.onload = function placeBlocks(){
     for(var idx = 0; idx < Characters.length;idx++){
         ctx.drawImage(blocksSpriteSheet, Characters[idx][0] * SpriteWidth, 0 * SpriteHeight, SpriteWidth, SpriteHeight, Characters[idx][1] * 100, Characters[idx][2] * 100, SpriteWidth, SpriteHeight)
     }
-    cashText.textContent = cash;
+    cashFormating()
     perChestText.textContent = cashForChest;  
     cashForUpgradeText.textContent = cashForUpgrade;  
     cashForNewCharacterText.textContent = cashForCharacter;
