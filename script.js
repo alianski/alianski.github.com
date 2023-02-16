@@ -16,6 +16,7 @@ var cashText = document.getElementById("cashText");
 var perChestText = document.getElementById("perChestText");
 var cashForUpgradeText = document.getElementById("cashForUpgradeText");
 var cashForNewCharacterText = document.getElementById("cashForNewCharacterText");
+var charactersText = document.getElementById("charactersText");
 
 const Characters = [[0, 1, 1], [0, 1, 1], [0, 1, 1]]
 const Map = [[randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
@@ -148,6 +149,7 @@ blocksSpriteSheet.onload = function placeBlocks(){
     perChestText.textContent = cashForChest;  
     cashForUpgradeText.textContent = cashForUpgrade;  
     cashForNewCharacterText.textContent = cashForCharacter;
+    charactersText.textContent = Characters.length;
     move();
     requestAnimationFrame(placeBlocks);
 }
