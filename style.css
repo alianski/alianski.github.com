@@ -1,0 +1,98 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+#canvas{
+    width: 1000px;
+    height: 1000px;
+    position: relative;
+    border: 1px solid black;
+    margin: auto;
+    top: 0px;
+    left: 0px;
+}
+#game{
+    position: absolute;
+    width: 1500px;
+    height: 1300px;
+    border: 1px solid black;
+    margin: auto;
+    top: 0px;
+    left: 0px;
+}
+#resetButton{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    top: -900px;
+    left: 1040px;
+    z-index: 100;
+}
+#cashText{
+    position: relative;
+    top: -1180px;
+    left: 1180px;
+    z-index: 101;
+    font-size: 50px;
+}
+#perChestText{
+    position: relative;
+    top: -1040px;
+    left: 1180px;
+    z-index: 101;
+    font-size: 50px;
+}
+#cashForNewCharacterText{
+    position: relative;
+    top: -870px;
+    left: 1020px;
+    z-index: 101;
+    font-size: 50px;
+}
+#cashForUpgradeText{
+    position: relative;
+    top: -1000px;
+    left: 1050px;
+    z-index: 101;
+    font-size: 50px;
+}
+#resetButtonText{
+    position: relative;
+    top: 30px;
+    left: 10px;
+    z-index: 110;
+    font-size: 25px;
+}
+#upgradeButton{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    top: -800px;
+    left: 1040px;
+    z-index: 100;
+}
+#upgradeButtonText{
+    position: relative;
+    top: 30px;
+    left: 10px;
+    z-index: 110;
+    font-size: 25px;
+}
+#newCharacterButton{
+    position: relative;
+    width: 160px;
+    height: 100px;
+    background-color: red;
+    top: -700px;
+    left: 1040px;
+    z-index: 100;
+}
+#newCharacterButtonText{
+    position: relative;
+    top: 30px;
+    left: 10px;
+    z-index: 110;
+    font-size: 25px;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOX UNBOXER</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="canvas">
+    </canvas>
+    <div id="game">
+        <canvas id="canvas"></canvas>
+        <div id="resetButton" onclick="resetMap()">
+            <p id="resetButtonText">RESET</p>
+        </div>
+        <div id="upgradeButton" onclick="upgrade()">
+            <p id="upgradeButtonText">Upgrade</p>
+        </div>
+        <div id="newCharacterButton" onclick="buyCharacter()">
+            <p id="newCharacterButtonText">New character</p>
+        </div>
+        <p id="cashText">%cash%</p>
+        <p id="perChestText">%perChest%</p>
+        <p id="cashForUpgradeText">%upgradeCost%</p>
+        <p id="cashForNewCharacterText">%newCharacterCost%</p>
+        
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
