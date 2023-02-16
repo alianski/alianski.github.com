@@ -18,19 +18,34 @@ var cashForUpgradeText = document.getElementById("cashForUpgradeText");
 var cashForNewCharacterText = document.getElementById("cashForNewCharacterText");
 
 const Characters = [[0, 1, 1], [0, 1, 1], [0, 1, 1]]
-const Map = [[7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7]];
+const Map = [[randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()]];
 
 
-
+function randomChest(){
+    chest = 0;
+    c = Math.floor(Math.random() * 100) + 1;
+    if (c >= 90){
+        if (c >= 100){
+            chest = 3;
+        }
+        else{
+            chest = 2;
+        }
+    }
+    else{
+        chest = 1;
+    }
+    return chest
+}
 
 function move(){
     for(var idx = 0; idx < Characters.length;idx++){
@@ -53,9 +68,23 @@ function move(){
 
 
 function breakChest(idx){
-    if (Map[Characters[idx][2]][Characters[idx][1]] == 7){
+    if (Map[Characters[idx][2]][Characters[idx][1]] == 1){
         Map[Characters[idx][2]][Characters[idx][1]] = A;
         cash = cash + cashForChest;
+    
+
+    }
+    if (Map[Characters[idx][2]][Characters[idx][1]] == 2){
+        Map[Characters[idx][2]][Characters[idx][1]] = A;
+        cash = cash + parseInt(cashForChest * 2.5);
+    
+
+    }
+    if (Map[Characters[idx][2]][Characters[idx][1]] == 3){
+        Map[Characters[idx][2]][Characters[idx][1]] = A;
+        cash = cash + parseInt(cashForChest * 7.5);
+    
+
     }
     goodCounter = 0;
     for (var idx = 0; idx < Map.length;idx++){
@@ -72,16 +101,16 @@ function breakChest(idx){
 }
 
 function resetMap(){
-    Map[0] = [7,7,7,7,7,7,7,7,7,7];
-    Map[1] = [7,7,7,7,7,7,7,7,7,7];
-    Map[2] = [7,7,7,7,7,7,7,7,7,7];
-    Map[3] = [7,7,7,7,7,7,7,7,7,7];
-    Map[4] = [7,7,7,7,7,7,7,7,7,7];
-    Map[5] = [7,7,7,7,7,7,7,7,7,7];
-    Map[6] = [7,7,7,7,7,7,7,7,7,7];
-    Map[7] = [7,7,7,7,7,7,7,7,7,7];
-    Map[8] = [7,7,7,7,7,7,7,7,7,7];
-    Map[9] = [7,7,7,7,7,7,7,7,7,7];
+    Map[0] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[1] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[2] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[3] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[4] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[5] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[6] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[7] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[8] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    Map[9] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
 }
 
 
