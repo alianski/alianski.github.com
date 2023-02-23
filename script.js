@@ -3,6 +3,7 @@ const CANVAS_WIDTH = canvas.width = 1000;
 const CANVAS_HEIGHT = canvas.height = 1000;
 const ctx = canvas.getContext("2d");
 var A = 0;
+var gameCode = 0;
 const blocksSpriteSheet = new Image();
 blocksSpriteSheet.src = "blockSpriteSheet.png";
 const SpriteWidth = 100;
@@ -22,6 +23,14 @@ var perChestText = document.getElementById("perChestText");
 var cashForUpgradeText = document.getElementById("cashForUpgradeText");
 var cashForNewCharacterText = document.getElementById("cashForNewCharacterText");
 var charactersText = document.getElementById("charactersText");
+
+
+
+
+
+
+
+
 
 const Characters = [[0, 1, 1], [0, 1, 1], [0, 1, 1]]
 const Map = [[randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
@@ -156,12 +165,84 @@ function cashFormating(value){
         cashFormat = parseInt(value / 1000) + 'K';
         if (value >= 1000000){
             cashFormat = parseInt(value / 1000000) + 'M';
+            if (value >= 1000000000){
+                cashFormat = parseInt(value / 1000000000) + 'B';
+            }
         }
     }
     else{
         cashFormat = value;
     }
     return cashFormat;
+}
+
+document.getElementById("gameCodeSubmit").onclick = function(){
+    gameCode = document.getElementById("gameCodeText").value;
+    command(gameCode);
+}
+
+function command(gameCode){
+    var field = 0;
+    var fieldNR = 1;
+    var characterslength = Characters.length;
+    for (var idx = 0; idx < gameCode.length;idx++){
+        if (gameCode[idx] != "&"){
+            field = (field * 10) + parseInt(gameCode[idx]);
+        }
+        else{
+            if (fieldNR == 1){
+                cash = field;
+            }
+            if (fieldNR == 2){
+                cashForChest = field;
+            }
+            if (fieldNR == 3){
+                cashForUpgrade = field;
+            }
+            if (fieldNR == 4){
+                cashForCharacter = field;
+            }
+            if (fieldNR == 5){
+                characterslength = field;
+                Characters.length = 0;
+                for (var idx = 0; idx < characterslength;idx++){
+                    Characters.push([0, 1, 1]);   
+                }
+            }
+            fieldNR ++;
+            field = 0;
+        }
+    }
+}
+
+function download(filename, text){
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    }
+    else {
+        pom.click();
+    }
+}
+
+function exportSave(){
+    var saveCode = "";
+    saveCode = saveCode + cash;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + cashForChest;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + cashForUpgrade;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + cashForCharacter;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + Characters.length;
+    saveCode = saveCode + "&";
+    download("save.txt", saveCode);
 }
 
 
@@ -178,7 +259,7 @@ blocksSpriteSheet.onload = function placeBlocks(){
         ctx.drawImage(blocksSpriteSheet, Characters[idx][0] * SpriteWidth, 0 * SpriteHeight, SpriteWidth, SpriteHeight, Characters[idx][1] * 100, Characters[idx][2] * 100, SpriteWidth, SpriteHeight)
     }
     cashText.textContent = cashFormating(cash);
-    perChestText.textContent = cashForChest;  
+    perChestText.textContent = cashForChest;
     cashForUpgradeText.textContent = cashFormating(cashForUpgrade);  
     cashForNewCharacterText.textContent = cashFormating(cashForCharacter);
     charactersText.textContent = Characters.length;

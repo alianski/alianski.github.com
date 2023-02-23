@@ -106,3 +106,21 @@
     z-index: 110;
     font-size: 50px;
 }
+#gameCodeLabel{
+    position: relative;
+    top: -520px;
+}
+#gameCodeText{
+    position: relative;
+    top: -540px;
+    left: 80px;
+}#gameCodeSubmit{
+    position: relative;
+    top: -560px;
+    left: 260px;
+}
+#exportButton{
+    position: relative;
+    top: -560px;
+    left: 260px;
+}
