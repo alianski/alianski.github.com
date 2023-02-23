@@ -11,6 +11,10 @@ var goodCounter = 0;
 var cashForChest = 1
 var cash = 0;
 var cashFormat = 0;
+var normChests = 0;
+var goldChests = 0;
+var diamondChests = 0;
+var rubinChests = 0;
 var cashForUpgrade = 10;
 var cashForCharacter = 15;
 var cashText = document.getElementById("cashText");
@@ -34,17 +38,24 @@ const Map = [[randomChest(), randomChest(), randomChest(), randomChest(), random
 
 function randomChest(){
     chest = 0;
-    c = Math.floor(Math.random() * 100) + 1;
-    if (c >= 90){
-        if (c >= 100){
+    c = Math.floor(Math.random() * 1000) + 1;
+    if (c >= 900){
+        if (c >= 990){
+            if (c >= 999){
+                chest = 4;
+                rubinChests ++;
+            }
             chest = 3;
+            diamondChests ++;
         }
         else{
             chest = 2;
+            goldChests ++;
         }
     }
     else{
         chest = 1;
+        normChests ++;
     }
     return chest
 }
@@ -88,6 +99,12 @@ function breakChest(idx){
     
 
     }
+    if (Map[Characters[idx][2]][Characters[idx][1]] == 4){
+        Map[Characters[idx][2]][Characters[idx][1]] = A;
+        cash = cash + parseInt(cashForChest * 30);
+    
+
+    }
     goodCounter = 0;
     for (var idx = 0; idx < Map.length;idx++){
         for (var idx2 = 0; idx2 < Map[idx].length;idx2++){
@@ -120,7 +137,7 @@ function upgrade(){
     if (cash >= cashForUpgrade){
         cash = cash - cashForUpgrade;
         cashForChest++;
-        cashForUpgrade = parseInt(cashForUpgrade * 2.5);
+        cashForUpgrade = parseInt(cashForUpgrade * 1.5);
     }
 }
 
@@ -129,22 +146,22 @@ function buyCharacter(){
     if (cash >= cashForCharacter){
         cash = cash - cashForCharacter;
         Characters.push([0, 1, 1]);
-        cashForCharacter = parseInt(cashForCharacter * 3.5);
+        cashForCharacter = parseInt(cashForCharacter * 2.5);
     }
 }
 
 
-function cashFormating(){
-    if (cash >= 1000){
-        cashFormat = parseInt(cash / 1000) + 'K';
-        if (cash >= 1000000){
-            cashFormat = parseInt(cash / 1000000) + 'M';
+function cashFormating(value){
+    if (value >= 1000){
+        cashFormat = parseInt(value / 1000) + 'K';
+        if (value >= 1000000){
+            cashFormat = parseInt(value / 1000000) + 'M';
         }
     }
     else{
-        cashFormat = cash;
+        cashFormat = value;
     }
-    cashText.textContent = cashFormat;
+    return cashFormat;
 }
 
 
@@ -160,10 +177,10 @@ blocksSpriteSheet.onload = function placeBlocks(){
     for(var idx = 0; idx < Characters.length;idx++){
         ctx.drawImage(blocksSpriteSheet, Characters[idx][0] * SpriteWidth, 0 * SpriteHeight, SpriteWidth, SpriteHeight, Characters[idx][1] * 100, Characters[idx][2] * 100, SpriteWidth, SpriteHeight)
     }
-    cashFormating()
+    cashText.textContent = cashFormating(cash);
     perChestText.textContent = cashForChest;  
-    cashForUpgradeText.textContent = cashForUpgrade;  
-    cashForNewCharacterText.textContent = cashForCharacter;
+    cashForUpgradeText.textContent = cashFormating(cashForUpgrade);  
+    cashForNewCharacterText.textContent = cashFormating(cashForCharacter);
     charactersText.textContent = Characters.length;
     move();
     requestAnimationFrame(placeBlocks);
