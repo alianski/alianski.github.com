@@ -11,12 +11,18 @@ const SpriteHeight = 100;
 var goodCounter = 0;
 var cashForChest = 1
 var cash = 0;
+let adcoins = 0;
 var cashFormat = 0;
 var normChests = 0;
 var goldChests = 0;
 var diamondChests = 0;
 var rubinChests = 0;
 var cashForUpgrade = 10;
+let onAd = 0;
+let adTime = -1;
+let adFrame = 0;
+// ad name / ad coins to get / time / ad ID
+let ads = [["alianskiYT ad", 1, 1100, 0, 0, 2], ["emotkowyYT ad", 1, 450, 1, 0, 0], ["felixerTV ad", 1, 450, 2, 0, 0]]
 var cashForCharacter = 15;
 var cashText = document.getElementById("cashText");
 var perChestText = document.getElementById("perChestText");
@@ -25,15 +31,8 @@ var cashForNewCharacterText = document.getElementById("cashForNewCharacterText")
 var charactersText = document.getElementById("charactersText");
 
 
-
-
-
-
-
-
-
 const Characters = [[0, 1, 1], [0, 1, 1], [0, 1, 1]]
-const Map = [[randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
+ Map = [[randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
     [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
     [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
     [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
@@ -87,8 +86,19 @@ function move(){
         breakChest(idx) 
     }
 }
-
-
+const interval = setInterval(function() {
+    animateAd()
+  }, 1000);
+function animateAd(){
+    for(var idx = 0; idx < ads.length;idx++){
+        if (ads[idx][4] < ads[idx][5]){
+            ads[idx][4] ++;
+        }
+        else{
+            ads[idx][4] = 0;
+        }
+    }
+}
 function breakChest(idx){
     if (Map[Characters[idx][2]][Characters[idx][1]] == 1){
         Map[Characters[idx][2]][Characters[idx][1]] = A;
@@ -245,6 +255,21 @@ function exportSave(){
     download("save.txt", saveCode);
 }
 
+function watchAdStart(){
+    if (adTime == -1){
+        adId = Math.floor(Math.random() * ads.length);
+        onAd = adId;
+        adTime = ads[onAd][2];
+    }
+
+}
+
+function adEnded(){
+    if (adTime == 0){
+        adcoins = adcoins + ads[onAd][1];
+    }
+}
+
 
 blocksSpriteSheet.onload = function placeBlocks(){  
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -258,6 +283,15 @@ blocksSpriteSheet.onload = function placeBlocks(){
     for(var idx = 0; idx < Characters.length;idx++){
         ctx.drawImage(blocksSpriteSheet, Characters[idx][0] * SpriteWidth, 0 * SpriteHeight, SpriteWidth, SpriteHeight, Characters[idx][1] * 100, Characters[idx][2] * 100, SpriteWidth, SpriteHeight)
     }
+    if (adTime > 0){
+        adTime = adTime - 1;
+        ctx.drawImage(blocksSpriteSheet, ads[onAd][3] * SpriteWidth, (ads[onAd][4] + 1) * SpriteHeight, SpriteWidth, SpriteHeight, 0, 0, SpriteWidth * 10, SpriteHeight * 10)
+    }
+    else{if (adTime == 0){
+        adTime = adTime - 1;
+        adcoins = adcoins + ads[onAd][1];
+    }}
+    
     cashText.textContent = cashFormating(cash);
     perChestText.textContent = cashForChest;
     cashForUpgradeText.textContent = cashFormating(cashForUpgrade);  
@@ -266,9 +300,3 @@ blocksSpriteSheet.onload = function placeBlocks(){
     move();
     requestAnimationFrame(placeBlocks);
 }
-
-
-
-
-
-
