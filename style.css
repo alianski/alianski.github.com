@@ -32,7 +32,7 @@
 #cashText{
     position: relative;
     top: -1180px;
-    left: 1180px;
+    left: 1070px;
     z-index: 101;
     font-size: 50px;
     width: 300px;
@@ -108,24 +108,54 @@
 }
 #gameCodeLabel{
     position: relative;
-    top: -520px;
+    top: -720px;
 }
 #gameCodeText{
     position: relative;
-    top: -540px;
+    top: -740px;
     left: 80px;
 }#gameCodeSubmit{
     position: relative;
-    top: -560px;
+    top: -760px;
     left: 260px;
 }
 #exportButton{
     position: relative;
-    top: -560px;
+    top: -760px;
     left: 260px;
 }
 #watchAdButton{
     position: relative;
-    top: -560px;
+    top: -760px;
     left: 260px;
+}
+#moreCashSmallButton{
+    position: relative;
+    top: -1000px;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    left: 1200px;
+}
+#moreCashSmallText{
+    position: relative;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    font-size: 25px;
+}
+#moreCashBigButton{
+    position: relative;
+    top: -1100px;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    left: 1340px;
+}
+#moreCashBigText{
+    position: relative;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    font-size: 25px;
 }

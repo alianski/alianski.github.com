@@ -170,7 +170,7 @@ function buyCharacter(){
 }
 
 
-function cashFormating(value){
+function cashFormating(value, cashSuffix){
     if (value >= 1000){
         cashFormat = parseInt(value / 1000) + 'K';
         if (value >= 1000000){
@@ -183,6 +183,7 @@ function cashFormating(value){
     else{
         cashFormat = value;
     }
+    cashFormat = cashFormat + cashSuffix
     return cashFormat;
 }
 
@@ -213,6 +214,21 @@ function command(gameCode){
                 cashForCharacter = field;
             }
             if (fieldNR == 5){
+                normChests = field;
+            }
+            if (fieldNR == 6){
+                goldChests = field;
+            }
+            if (fieldNR == 7){
+                diamondChests = field;
+            }
+            if (fieldNR == 8){
+                rubinChests = field;
+            }
+            if (fieldNR == 9){
+                adcoins = field;
+            }
+            if (fieldNR == 10){
                 characterslength = field;
                 Characters.length = 0;
                 for (var idx = 0; idx < characterslength;idx++){
@@ -250,6 +266,16 @@ function exportSave(){
     saveCode = saveCode + "&";
     saveCode = saveCode + cashForCharacter;
     saveCode = saveCode + "&";
+    saveCode = saveCode + normChests;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + goldChests;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + diamondChests;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + rubinChests;
+    saveCode = saveCode + "&";
+    saveCode = saveCode + adcoins;
+    saveCode = saveCode + "&";
     saveCode = saveCode + Characters.length;
     saveCode = saveCode + "&";
     download("save.txt", saveCode);
@@ -267,6 +293,21 @@ function watchAdStart(){
 function adEnded(){
     if (adTime == 0){
         adcoins = adcoins + ads[onAd][1];
+    }
+}
+
+function buyWithAds(whatToBuy){
+    if (whatToBuy == 75){
+        if (adcoins >= 1){
+            adcoins = adcoins - 1;
+            cash = cash + parseInt(cash * 0.75);
+        }
+    }
+    if (whatToBuy == 200){
+        if (adcoins >= 2){
+            adcoins = adcoins - 2;
+            cash = cash + parseInt(cash * 2);
+        }
     }
 }
 
@@ -292,10 +333,10 @@ blocksSpriteSheet.onload = function placeBlocks(){
         adcoins = adcoins + ads[onAd][1];
     }}
     
-    cashText.textContent = cashFormating(cash);
-    perChestText.textContent = cashForChest;
-    cashForUpgradeText.textContent = cashFormating(cashForUpgrade);  
-    cashForNewCharacterText.textContent = cashFormating(cashForCharacter);
+    cashText.textContent = cashFormating(cash, " cash");
+    perChestText.textContent = "+ " + cashForChest + " per chest";
+    cashForUpgradeText.textContent = cashFormating(cashForUpgrade, " for upgrade");  
+    cashForNewCharacterText.textContent = cashFormating(cashForCharacter, " for new character");
     charactersText.textContent = Characters.length;
     move();
     requestAnimationFrame(placeBlocks);
