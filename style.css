@@ -140,7 +140,7 @@
 #moreCashSmallText{
     position: relative;
     top: 20px;
-    left: 20px;
+    left: 3px;
     z-index: 100;
     font-size: 25px;
 }
@@ -154,8 +154,14 @@
 }
 #moreCashBigText{
     position: relative;
-    top: 20px;
+    top: 3px;
     left: 20px;
     z-index: 100;
     font-size: 25px;
+}
+#adsText{
+    position: relative;
+    top: -1750px;
+    left: 1050px;
+    font-size: 40px;
 }

@@ -29,6 +29,7 @@ var perChestText = document.getElementById("perChestText");
 var cashForUpgradeText = document.getElementById("cashForUpgradeText");
 var cashForNewCharacterText = document.getElementById("cashForNewCharacterText");
 var charactersText = document.getElementById("charactersText");
+var adText = document.getElementById("adsText");
 
 
 const Characters = [[0, 1, 1], [0, 1, 1], [0, 1, 1]]
@@ -139,34 +140,42 @@ function breakChest(idx){
 }
 
 function resetMap(){
-    Map[0] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[1] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[2] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[3] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[4] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[5] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[6] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[7] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[8] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    Map[9] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    if (adTime == -1){
+        Map[0] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[1] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[2] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[3] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[4] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[5] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[6] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[7] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[8] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+        Map[9] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
+    }
+
 }
 
 
 function upgrade(){
-    if (cash >= cashForUpgrade){
-        cash = cash - cashForUpgrade;
-        cashForChest++;
-        cashForUpgrade = parseInt(cashForUpgrade * 1.5);
+    if (adTime == -1){
+        if (cash >= cashForUpgrade){
+            cash = cash - cashForUpgrade;
+            cashForChest++;
+            cashForUpgrade = parseInt(cashForUpgrade * 1.5);
+        }
     }
 }
 
 
 function buyCharacter(){
-    if (cash >= cashForCharacter){
-        cash = cash - cashForCharacter;
-        Characters.push([0, 1, 1]);
-        cashForCharacter = parseInt(cashForCharacter * 2.5);
+    if (adTime == -1){
+        if (cash >= cashForCharacter){
+            cash = cash - cashForCharacter;
+            Characters.push([0, 1, 1]);
+            cashForCharacter = parseInt(cashForCharacter * 2.5);
+        }
     }
+
 }
 
 
@@ -338,6 +347,7 @@ blocksSpriteSheet.onload = function placeBlocks(){
     cashForUpgradeText.textContent = cashFormating(cashForUpgrade, " for upgrade");  
     cashForNewCharacterText.textContent = cashFormating(cashForCharacter, " for new character");
     charactersText.textContent = Characters.length;
-    move();
+    adText.textContent = cashFormating(adcoins, " ads");
+    if (adTime == -1){move();}
     requestAnimationFrame(placeBlocks);
 }
