@@ -2,42 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BOX UNBOXER</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komendy</title>
     <link rel="stylesheet" href="style.css">
+    <style></style>
 </head>
 <body>
-    <canvas id="canvas">
-    </canvas>
-    <div id="game">
-        <canvas id="canvas"></canvas>
-        <div id="resetButton" onclick="resetMap()">
-            <p id="resetButtonText">RESET</p>
-        </div>
-        <div id="moreCashSmallButton" onclick="buyWithAds(75)">
-            <p id="moreCashSmallText">+75% cash 1 ad</p>
-        </div>
-        <div id="moreCashBigButton" onclick="buyWithAds(200)">
-            <p id="moreCashBigText">+200% cash 2 ads</p>
-        </div>
-        <div id="upgradeButton" onclick="upgrade()">
-            <p id="upgradeButtonText">Upgrade</p>
-        </div>
-        <div id="newCharacterButton" onclick="buyCharacter()">
-            <p id="charactersText">%characters%</p>
-            <p id="newCharacterButtonText">New character</p>
-        </div>
-        <p id="cashText">%cash%</p>
-        <p id="perChestText">%perChest%</p>
-        <p id="cashForUpgradeText">%upgradeCost%</p>
-        <p id="cashForNewCharacterText">%newCharacterCost%</p>
-        <label id="gameCodeLabel">Game code:</label><br>
-        <input type="text" id="gameCodeText"><br>
-        <button type="button" id="gameCodeSubmit">Submit</button>
-        <button type="button" id="exportButton", onclick="exportSave()">Export save</button>
-        <button type="button" id="watchAdButton", onclick="watchAdStart()">Watch ad</button>
-        <p id="adsText">%adcoins%</p>
-        
+    <div id="commands">
+        <p class="commandText" id="line001"></p>
+        <p class="commandText" id="line002"></p>
+        <p class="commandText" id="line003"></p>
+        <p class="commandText" id="line004"></p>
+        <p class="commandText" id="line005"></p>
+        <p class="commandText" id="line006"></p>
+        <p class="commandText" id="line007"></p>
+        <p class="commandText" id="line008"></p>
+        <p class="commandText" id="line009"></p>
+        <p class="commandText" id="line010"></p>
+        <p class="commandText" id="line011"></p>
+        <p class="commandText" id="line012"></p>
+        <p class="commandText" id="line013"></p>
+        <p class="commandText" id="line014"></p>
+        <p class="commandText" id="line015"></p>
+        <p class="commandText" id="line016"></p>
+        <p class="commandText" id="line017"></p>
     </div>
+    <div id="buttons">
+        <div class="button" onclick="komenda(1)">1. Survival z komend blokami</div>
+        <div class="button" onclick="komenda(2)">2. Zamiana w psa</div>
+        <div class="button" onclick="komenda(3)">3. waypointy</div>
+        <div class="button" onclick="komenda(4)">4. warp'y</div>
+    </div>
+    <p id="lastVideoText">Ostatni odcinek nie zapomnij dać suba</p>
+    <iframe id="lastVideo" width="560" height="315" src="https://www.youtube-nocookie.com/embed/wPWgQPh8rtI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </body>
 <script src="script.js"></script>
 </html>

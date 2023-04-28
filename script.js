@@ -1,353 +1,46 @@
-const canvas = document.getElementById("canvas");
-const CANVAS_WIDTH = canvas.width = 1000;
-const CANVAS_HEIGHT = canvas.height = 1000;
-const ctx = canvas.getContext("2d");
-var A = 0;
-var gameCode = 0;
-const blocksSpriteSheet = new Image();
-blocksSpriteSheet.src = "blockSpriteSheet.png";
-const SpriteWidth = 100;
-const SpriteHeight = 100;
-var goodCounter = 0;
-var cashForChest = 1
-var cash = 0;
-let adcoins = 0;
-var cashFormat = 0;
-var normChests = 0;
-var goldChests = 0;
-var diamondChests = 0;
-var rubinChests = 0;
-var cashForUpgrade = 10;
-let onAd = 0;
-let adTime = -1;
-let adFrame = 0;
-// ad name / ad coins to get / time / ad ID
-let ads = [["alianskiYT ad", 1, 1100, 0, 0, 2], ["emotkowyYT ad", 1, 450, 1, 0, 0], ["felixerTV ad", 1, 450, 2, 0, 0]]
-var cashForCharacter = 15;
-var cashText = document.getElementById("cashText");
-var perChestText = document.getElementById("perChestText");
-var cashForUpgradeText = document.getElementById("cashForUpgradeText");
-var cashForNewCharacterText = document.getElementById("cashForNewCharacterText");
-var charactersText = document.getElementById("charactersText");
-var adText = document.getElementById("adsText");
-
-
-const Characters = [[0, 1, 1], [0, 1, 1], [0, 1, 1]]
- Map = [[randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()],
-    [randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest(), randomChest()]];
-
-
-function randomChest(){
-    chest = 0;
-    c = Math.floor(Math.random() * 1000) + 1;
-    if (c >= 900){
-        if (c >= 990){
-            if (c >= 999){
-                chest = 4;
-                rubinChests ++;
-            }
-            chest = 3;
-            diamondChests ++;
-        }
-        else{
-            chest = 2;
-            goldChests ++;
-        }
-    }
-    else{
-        chest = 1;
-        normChests ++;
-    }
-    return chest
-}
-
-function move(){
-    for(var idx = 0; idx < Characters.length;idx++){
-        var random = Math.floor(Math.random() * 360);
-        if (Characters[idx][1] != 9 && random <= 90){
-            Characters[idx][1] = Characters[idx][1] + 1;
-        }
-        if (Characters[idx][1] != 0 && random <= 180 && random >= 91){
-            Characters[idx][1] = Characters[idx][1] - 1;
-        } 
-        if (Characters[idx][2] != 9 && random <= 270 && random >= 181){
-            Characters[idx][2] = Characters[idx][2] + 1;
-        } 
-        if (Characters[idx][2] != 0 && random <= 360 && random >= 271){
-            Characters[idx][2] = Characters[idx][2] - 1;
-        }
-        breakChest(idx) 
-    }
-}
-const interval = setInterval(function() {
-    animateAd()
-  }, 1000);
-function animateAd(){
-    for(var idx = 0; idx < ads.length;idx++){
-        if (ads[idx][4] < ads[idx][5]){
-            ads[idx][4] ++;
-        }
-        else{
-            ads[idx][4] = 0;
-        }
-    }
-}
-function breakChest(idx){
-    if (Map[Characters[idx][2]][Characters[idx][1]] == 1){
-        Map[Characters[idx][2]][Characters[idx][1]] = A;
-        cash = cash + cashForChest;
-    
+function komenda(id){
+    commandsText = document.getElementById("commands");
+    commandsText.style.left = 0 + "px";
+    if (id == 1){
+        document.getElementById("line001").textContent = "pierwsza komenda od tego pierwszego bloka poleceń (fioletowego staje się fioletowym poprzez ustawienie w opcjach na repeat)";
+        document.getElementById("line002").textContent = 'gamemode creative @a[nbt={SelectedItem:{id:"minecraft:command_block"}}]';
+        document.getElementById("line003").textContent = "druga komenda w pomarańczowym" 
+        document.getElementById("line004").textContent = "gamemode survival @p"
 
     }
-    if (Map[Characters[idx][2]][Characters[idx][1]] == 2){
-        Map[Characters[idx][2]][Characters[idx][1]] = A;
-        cash = cash + parseInt(cashForChest * 2.5);
-    
-
+    if (id == 2){
+        document.getElementById("line001").textContent = '1. [repeat] [unconditional] [always active] /gamemode survival @a[nbt={SelectedItem:{id:"minecraft:bone"}}]';
+        document.getElementById("line002").textContent = '2. [repeat] [unconditional] [needs redstone] /effect give @p minecraft:invisibility 1 1';
+        document.getElementById("line003").textContent = '3. [chain] [unconditional] [always active] /tp @e[name=balto] @p';
+        document.getElementById("line004").textContent = '4. [chain] [unconditional] [always active] /effect give @p minecraft:speed 1 1 true';
+        document.getElementById("line005").textContent = '5 (ten w tubie a tuby nie trzeba budować ale ja zbudowałem bo miałem ochotę ;-)).';
+        document.getElementById("line006").textContent = '[repeat] [unconditional] [needs redstone] /tp @e[name=balto] ~ ~1 ~ facing 66.73 73.00 -31.39';
+        document.getElementById("line007").textContent = '6.[repeat] [unconditional] [always active] /effect give @e[name=balto] minecraft:fire_resistance 1 10 true';
+        document.getElementById("line008").textContent = '7.[repeat] [unconditional] [always active] /effect give @e[name=balto] minecraft:absorption 1 10 true';
+        document.getElementById("line009").textContent = '8.[repeat] [unconditional] [always active] /effect give @e[name=balto] minecraft:health_boost 1 10 true';
+        document.getElementById("line010").textContent = '9.[repeat] [unconditional] [always active] /effect give @e[name=balto] minecraft:regeneration 1 10 true';
     }
-    if (Map[Characters[idx][2]][Characters[idx][1]] == 3){
-        Map[Characters[idx][2]][Characters[idx][1]] = A;
-        cash = cash + parseInt(cashForChest * 7.5);
-    
-
+    if (id == 3){
+        document.getElementById("line001").textContent = "nether star [impulse] [unconditional] [needs redstone] /give @p frog_spawn_egg{EntityTag:{id:armor_stand,ShowArms:1b,Invisible:1b,Marker:1b,NoBasePlate:1b,Small:1b,DisabledSlots:4144959,CustomName:'[{'text':'Waypoint'}]',Health:231,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,Tags:['waypoint'],ArmorItems:[{},{},{},{id:red_bed,Count:1}],ArmorDropChances:[0f,0f,0f,0f],Attributes:[{Name:'generic.max_health',Base:231f}]},display:{Name:'[{'text':'Waypoint','italic':false}]'}} 1";
+        document.getElementById("line002").textContent = "blaze rod [repeat] [unconditional] [always active] effect give @e[tag=waypoint] minecraft:glowing infinite";
     }
-    if (Map[Characters[idx][2]][Characters[idx][1]] == 4){
-        Map[Characters[idx][2]][Characters[idx][1]] = A;
-        cash = cash + parseInt(cashForChest * 30);
-    
-
+    if (id == 4){
+        document.getElementById("line001").textContent = 'netheryt 1 [impulse] [unconditional] [needs redstone] execute as @e[tag=warp] positioned as @s run setblock ~ ~-1 ~ air destroy';
+        document.getElementById("line002").textContent = 'netheryt 2 [chain] [unc] [alw] /kill @e[tag=warp]';
+        document.getElementById("line003").textContent = 'chleb /give @p enderman_spawn_egg{EntityTag:{id:enderman,CustomName:"[{"text":"Warp 1"}]",Health:231,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,Tags:["warp1","warp"],Attributes:[{Name:"generic.max_health",Base:231f}]},display:{Name:"[{"text":"Warp 1","italic":false}]"}} 1';
+        document.getElementById("line004").textContent = 'ciastko [imp] [unc] [ned] /give @p enderman_spawn_egg{EntityTag:{id:enderman,CustomName:"[{"text":"Warp 1"}]",Health:231,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,Tags:["warp2","warp"],Attributes:[{Name:"generic.max_health",Base:231f}]},display:{Name:"[{"text":"Warp 2","italic":false}]"}} 1';
+        document.getElementById("line005").textContent = 'baranina [rep] [unc] [alw] execute as @e[tag=warp] positioned as @s run setblock ~ ~-1 ~ minecraft:end_portal_frame destroy';
+        document.getElementById("line006").textContent = 'jablko [rep] [unc] [alw] effect give @e[tag=warp] minecraft:invisibility infinite';
+        document.getElementById("line007").textContent = 'ciasto [rep] [unc] [alw] scoreboard players add @a inWarp 0';
+        document.getElementById("line008").textContent = 'perla kresu [rep] [unc] [alw] execute as @e[tag=warp] positioned as @s run scoreboard players add @e[type=minecraft:player,distance=..2,dx=2,dy=2,dz=2] inWarp 1';
+        document.getElementById("line009").textContent = 'diament [rep] [unc] [alw] execute as @e[tag=warp] positioned as @s run scoreboard players reset @e[type=minecraft:player,distance=2..,dx=2.,dy=2.,dz=2.] inWarp';
+        document.getElementById("line010").textContent = 'szlam 1 [rep] [unc] [alw] execute as @e[tag=warp2] positioned as @s run tag @e[type=minecraft:player,distance=..2,dx=2,dy=2,dz=2,scores={inWarp=20..}] add toWarp1';
+        document.getElementById("line011").textContent = 'szlam 2 [chain] [unc] [alw] /execute as @e[tag=toWarp1] run scoreboard players reset @s';
+        document.getElementById("line012").textContent = 'szlam 3 [chain] [unc] [alw] /tp @a[tag=toWarp1] @e[tag=warp1, limit=1, sort=nearest]';
+        document.getElementById("line013").textContent = 'szlam 4 [chain] [unc] [alw] tag @a[tag=toWarp1] remove toWarp1';
+        document.getElementById("line014").textContent = 'glina 1 [rep] [unc] [alw] execute as @e[tag=warp1] positioned as @s run tag @e[type=minecraft:player,distance=..2,dx=2,dy=2,dz=2,scores={inWarp=20..}] add toWarp2';
+        document.getElementById("line015").textContent = 'glina 2 [chain] [unc] [alw] /execute as @e[tag=toWarp2] run scoreboard players reset @s';
+        document.getElementById("line016").textContent = 'glina 3 [chain] [unc] [alw] /tp @a[tag=toWarp2] @e[tag=warp2, limit=1, sort=nearest]';
+        document.getElementById("line017").textContent = 'glina 4 [chain] [unc] [alw] tag @a[tag=toWarp2] remove toWarp2';
     }
-    goodCounter = 0;
-    for (var idx = 0; idx < Map.length;idx++){
-        for (var idx2 = 0; idx2 < Map[idx].length;idx2++){
-            if (Map[idx][idx2] == A){
-                goodCounter++;
-            }
-        }
-    }
-    if (goodCounter >= 100){
-        resetMap();
-    }
-    
-}
-
-function resetMap(){
-    if (adTime == -1){
-        Map[0] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[1] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[2] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[3] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[4] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[5] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[6] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[7] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[8] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-        Map[9] = [randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest(),randomChest()];
-    }
-
-}
-
-
-function upgrade(){
-    if (adTime == -1){
-        if (cash >= cashForUpgrade){
-            cash = cash - cashForUpgrade;
-            cashForChest++;
-            cashForUpgrade = parseInt(cashForUpgrade * 1.5);
-        }
-    }
-}
-
-
-function buyCharacter(){
-    if (adTime == -1){
-        if (cash >= cashForCharacter){
-            cash = cash - cashForCharacter;
-            Characters.push([0, 1, 1]);
-            cashForCharacter = parseInt(cashForCharacter * 2.5);
-        }
-    }
-
-}
-
-
-function cashFormating(value, cashSuffix){
-    if (value >= 1000){
-        cashFormat = parseInt(value / 1000) + 'K';
-        if (value >= 1000000){
-            cashFormat = parseInt(value / 1000000) + 'M';
-            if (value >= 1000000000){
-                cashFormat = parseInt(value / 1000000000) + 'B';
-            }
-        }
-    }
-    else{
-        cashFormat = value;
-    }
-    cashFormat = cashFormat + cashSuffix
-    return cashFormat;
-}
-
-document.getElementById("gameCodeSubmit").onclick = function(){
-    gameCode = document.getElementById("gameCodeText").value;
-    command(gameCode);
-}
-
-function command(gameCode){
-    var field = 0;
-    var fieldNR = 1;
-    var characterslength = Characters.length;
-    for (var idx = 0; idx < gameCode.length;idx++){
-        if (gameCode[idx] != "&"){
-            field = (field * 10) + parseInt(gameCode[idx]);
-        }
-        else{
-            if (fieldNR == 1){
-                cash = field;
-            }
-            if (fieldNR == 2){
-                cashForChest = field;
-            }
-            if (fieldNR == 3){
-                cashForUpgrade = field;
-            }
-            if (fieldNR == 4){
-                cashForCharacter = field;
-            }
-            if (fieldNR == 5){
-                normChests = field;
-            }
-            if (fieldNR == 6){
-                goldChests = field;
-            }
-            if (fieldNR == 7){
-                diamondChests = field;
-            }
-            if (fieldNR == 8){
-                rubinChests = field;
-            }
-            if (fieldNR == 9){
-                adcoins = field;
-            }
-            if (fieldNR == 10){
-                characterslength = field;
-                Characters.length = 0;
-                for (var idx = 0; idx < characterslength;idx++){
-                    Characters.push([0, 1, 1]);   
-                }
-            }
-            fieldNR ++;
-            field = 0;
-        }
-    }
-}
-
-function download(filename, text){
-    var pom = document.createElement('a');
-    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    pom.setAttribute('download', filename);
-
-    if (document.createEvent) {
-        var event = document.createEvent('MouseEvents');
-        event.initEvent('click', true, true);
-        pom.dispatchEvent(event);
-    }
-    else {
-        pom.click();
-    }
-}
-
-function exportSave(){
-    var saveCode = "";
-    saveCode = saveCode + cash;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + cashForChest;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + cashForUpgrade;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + cashForCharacter;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + normChests;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + goldChests;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + diamondChests;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + rubinChests;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + adcoins;
-    saveCode = saveCode + "&";
-    saveCode = saveCode + Characters.length;
-    saveCode = saveCode + "&";
-    download("save.txt", saveCode);
-}
-
-function watchAdStart(){
-    if (adTime == -1){
-        adId = Math.floor(Math.random() * ads.length);
-        onAd = adId;
-        adTime = ads[onAd][2];
-    }
-
-}
-
-function adEnded(){
-    if (adTime == 0){
-        adcoins = adcoins + ads[onAd][1];
-    }
-}
-
-function buyWithAds(whatToBuy){
-    if (whatToBuy == 75){
-        if (adcoins >= 1){
-            adcoins = adcoins - 1;
-            cash = cash + parseInt(cash * 0.75);
-        }
-    }
-    if (whatToBuy == 200){
-        if (adcoins >= 2){
-            adcoins = adcoins - 2;
-            cash = cash + parseInt(cash * 2);
-        }
-    }
-}
-
-
-blocksSpriteSheet.onload = function placeBlocks(){  
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    for (var idx = 0; idx < Map.length;idx++){
-        for (var idx2 = 0; idx2 < Map[idx].length;idx2++){
-            if (Map[idx][idx2] != A){
-                ctx.drawImage(blocksSpriteSheet, Map[idx][idx2] * SpriteWidth, 0 * SpriteHeight, SpriteWidth, SpriteHeight, idx2 * 100, idx * 100, SpriteWidth, SpriteHeight)
-            }
-        }
-    }
-    for(var idx = 0; idx < Characters.length;idx++){
-        ctx.drawImage(blocksSpriteSheet, Characters[idx][0] * SpriteWidth, 0 * SpriteHeight, SpriteWidth, SpriteHeight, Characters[idx][1] * 100, Characters[idx][2] * 100, SpriteWidth, SpriteHeight)
-    }
-    if (adTime > 0){
-        adTime = adTime - 1;
-        ctx.drawImage(blocksSpriteSheet, ads[onAd][3] * SpriteWidth, (ads[onAd][4] + 1) * SpriteHeight, SpriteWidth, SpriteHeight, 0, 0, SpriteWidth * 10, SpriteHeight * 10)
-    }
-    else{if (adTime == 0){
-        adTime = adTime - 1;
-        adcoins = adcoins + ads[onAd][1];
-    }}
-    
-    cashText.textContent = cashFormating(cash, " cash");
-    perChestText.textContent = "+ " + cashForChest + " per chest";
-    cashForUpgradeText.textContent = cashFormating(cashForUpgrade, " for upgrade");  
-    cashForNewCharacterText.textContent = cashFormating(cashForCharacter, " for new character");
-    charactersText.textContent = Characters.length;
-    adText.textContent = cashFormating(adcoins, " ads");
-    if (adTime == -1){move();}
-    requestAnimationFrame(placeBlocks);
 }
